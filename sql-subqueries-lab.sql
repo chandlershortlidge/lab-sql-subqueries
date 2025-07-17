@@ -21,8 +21,6 @@ from film);
 
 -- Use a subquery to display all actors who appear in the film "Alone Trip".
 
-
-
 select
 	first_name,
     last_name
@@ -34,10 +32,25 @@ from film_actor
 where film_id in (select 
     film_id
 from film
-where title like "%Alone Trip%"))
+where title like "%Alone Trip%"));
 
 
--- Error Code: 1241. Operand should contain 1 column(s)
+-- Sales have been lagging among young families, and you want to target family movies for a promotion. 
+-- Identify all movies categorized as family films.
+
+select
+	title
+from film
+where film_id in    
+(select
+	film_id
+from film_category
+where category_id in (select
+    category_id
+from category
+where name like "%Family%"));
+
+-- Error Code: 1054. Unknown column 'category_id' in 'IN/ALL/ANY subquery'
 
 
 

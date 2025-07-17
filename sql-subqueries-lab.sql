@@ -50,7 +50,28 @@ where category_id in (select
 from category
 where name like "%Family%"));
 
--- Error Code: 1054. Unknown column 'category_id' in 'IN/ALL/ANY subquery'
+-- Retrieve the name and email of customers from Canada using both subqueries and joins. 
+-- To use joins, you will need to identify the relevant tables and their primary and foreign keys.
+
+select
+	first_name,
+    last_name,
+    email
+from customer as cu
+join address as a on cu.address_id = a.address_id
+join city as c on a.city_id = c.city_id
+join country as cou on c.country_id = cou.country_id
+where cou.country like "%Canada%"
+
+
+-- Determine which films were starred by the most prolific actor in the Sakila database. 
+-- a prolific actor is defined as the actor who has acted in the most number of films. 
+-- First, you will need to find the most prolific actor and then use that actor_id to find the different films that he or she starred in.
+
+
+
+
+
 
 
 

@@ -17,8 +17,27 @@ from film
 where length > 
 (select
 	avg(floor(length))
-from film)
+from film);
 
+-- Use a subquery to display all actors who appear in the film "Alone Trip".
+
+
+
+select
+	first_name,
+    last_name
+from actor
+where actor_id in
+(select 
+	actor_id
+from film_actor
+where film_id in (select 
+    film_id
+from film
+where title like "%Alone Trip%"))
+
+
+-- Error Code: 1241. Operand should contain 1 column(s)
 
 
 

@@ -80,9 +80,25 @@ select
 first_name,
 last_name
 from actor as a
-inner join top_actor on a.actor_id = top_actor.actor_id
+inner join top_actor on a.actor_id = top_actor.actor_id;
 
+-- Find the films rented by the most profitable customer in the Sakila database. 
+-- You can use the customer and payment tables to find the most profitable customer, 
+-- i.e., the customer who has made the largest sum of payments.
 
+with top_spender as (
+select
+customer_id,
+SUM(amount) as total_spent
+from payment
+group by customer_id
+order by total_spent desc
+limit 1)
+select 
+first_name,
+last_name
+from customer as c
+join top_spender on c.customer_id = top_spender.customer_id
 
 
 

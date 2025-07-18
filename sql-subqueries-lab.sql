@@ -98,8 +98,22 @@ select
 first_name,
 last_name
 from customer as c
-join top_spender on c.customer_id = top_spender.customer_id
+join top_spender on c.customer_id = top_spender.customer_id;
 
+-- Retrieve the client_id and the total_amount_spent of those clients who spent more than the average of the total_amount spent by each client. 
+-- You can use subqueries to accomplish this.
+
+select
+customer_id,
+SUM(amount) as total_spent
+from payment
+group by customer_id
+having sum(amount) >
+(select avg(total_spent)
+from 
+(select sum(amount) as total_spent from payment
+group by customer_id)
+as customer_totals)
 
 
 

@@ -61,14 +61,26 @@ from customer as cu
 join address as a on cu.address_id = a.address_id
 join city as c on a.city_id = c.city_id
 join country as cou on c.country_id = cou.country_id
-where cou.country like "%Canada%"
+where cou.country like "%Canada%";
 
 
 -- Determine which films were starred by the most prolific actor in the Sakila database. 
 -- a prolific actor is defined as the actor who has acted in the most number of films. 
 -- First, you will need to find the most prolific actor and then use that actor_id to find the different films that he or she starred in.
 
-
+with top_actor as (select
+a.actor_id
+from actor as a
+join film_actor as f 
+on a.actor_id = f.actor_id
+group by a.actor_id
+order by count(f.film_id) desc 
+limit 1)
+select
+first_name,
+last_name
+from actor as a
+inner join top_actor on a.actor_id = top_actor.actor_id
 
 
 
